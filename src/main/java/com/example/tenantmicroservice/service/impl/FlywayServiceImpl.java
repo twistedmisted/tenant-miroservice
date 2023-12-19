@@ -17,15 +17,13 @@ public class FlywayServiceImpl implements FlywayService {
 
     private final DbConfigurationRepository dbConfigurationRepository;
 
-//    @PostConstruct
+    @PostConstruct
     public void applyMigration() {
-        dbConfigurationRepository.findAll().forEach(dbConf -> {
-            Flyway.configure()
-                    .dataSource(dbConf.getUrl() + dbConf.getName(), dbConf.getUsername(), dbConf.getPassword())
-                    .locations(MIGRATION_LOCATION)
-                    .load()
-                    .migrate();
-        });
+        dbConfigurationRepository.findAll().forEach(dbConf -> Flyway.configure()
+                .dataSource(dbConf.getUrl() + dbConf.getName(), dbConf.getUsername(), dbConf.getPassword())
+                .locations(MIGRATION_LOCATION)
+                .load()
+                .migrate());
     }
 
     @Override

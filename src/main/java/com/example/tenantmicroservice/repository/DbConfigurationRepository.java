@@ -2,7 +2,6 @@ package com.example.tenantmicroservice.repository;
 
 import com.example.tenantmicroservice.entity.DbConfigurationEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

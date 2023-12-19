@@ -2,8 +2,6 @@ package com.example.tenantmicroservice.service;
 
 import com.example.tenantmicroservice.model.dto.DbConfigurationDto;
 
-import java.util.List;
-
 public interface DbConfigurationService {
 
     DbConfigurationDto getByTenantId(String tenantId);

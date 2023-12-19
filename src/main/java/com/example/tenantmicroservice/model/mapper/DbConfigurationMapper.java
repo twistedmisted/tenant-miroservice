@@ -5,9 +5,6 @@ import com.example.tenantmicroservice.model.dto.DbConfigurationDto;
 import com.example.tenantmicroservice.model.payload.CreateDbConfig;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static java.util.Objects.isNull;
 
 @Component
