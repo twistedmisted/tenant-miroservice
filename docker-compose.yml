@@ -1,0 +1,49 @@
+version: '3.1'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: Tenants
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+
+  tenant-microservice:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+
+  mysql_tenant_1:
+    container_name: tenant_1
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: Tenant_Dev_1
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+#
+#  mysql_tenant_2:
+#    container_name: tenant_2
+#    image: mysql:latest
+#    restart: always
+#    environment:
+#      MYSQL_DATABASE: Tenant_Dev_2
+#      MYSQL_USER: admin
+#      MYSQL_PASSWORD: password
+#      MYSQL_ROOT_PASSWORD: password
+#    ports:
+#      - "3307:3306"
